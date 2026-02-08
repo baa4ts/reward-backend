@@ -1,6 +1,4 @@
 import { z } from "zod";
-import { rewardTable } from "../DB/schema";
-import { InferModel } from "drizzle-orm";
 
 export type Reward = {
     id: number;

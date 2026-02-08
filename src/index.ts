@@ -6,7 +6,7 @@ import { prettyJSON } from 'hono/pretty-json'
 const app = new Hono()
 
 // Global middleware
-// app.use(compress())
+app.use(compress())
 app.use(prettyJSON())
 
 // Rutas
