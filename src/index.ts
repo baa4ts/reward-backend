@@ -7,7 +7,7 @@ import { cors } from 'hono/cors'
 const app = new Hono()
 
 // Middleware global
-app.use(compress())
+// app.use(compress())
 app.use(prettyJSON())
 
 // CORS

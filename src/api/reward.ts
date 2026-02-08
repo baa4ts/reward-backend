@@ -5,7 +5,6 @@ import { desc } from "drizzle-orm";
 import { parseLimit } from "../helpers/query.helper";
 import z from "zod";
 import { Reward, RewardSchema } from "../type/reward";
-import { encode } from '@toon-format/toon'
 
 const app = new Hono();
 
@@ -20,26 +19,14 @@ app.get('/', async (c) => {
             .orderBy(desc(rewardTable.id))
             .limit(limit)
 
-        // Decidir formato según Accept
-        if (c.req.header("Accept")?.includes("application/toon")) {
-            return c.text(encode(reward), 200)
-        }
-
         return c.json(reward, 200)
 
     } catch (error) {
-        // Mensaje de error único
-        const errorMsg = { msg: "Error: El servidor se encuentra fuera de servicio o la base de datos está detenida temporalmente" }
-
         // Status code
         // Ref: https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status#503_service_unavailable
         c.status(503)
 
-        if (c.req.header("Accept")?.includes("application/toon")) {
-            return c.text(encode(errorMsg), 503)
-        }
-
-        return c.json(errorMsg, 503)
+        return c.json({ msg: "Error: El servidor se encuentra fuera de servicio o la base de datos está detenida temporalmente" }, 503)
     }
 })
 
@@ -65,26 +52,14 @@ app.post("/", async (c) => {
             .values(data.data)
             .returning({ id: rewardTable.id });
 
-        // Decidir formato según Accept
-        if (c.req.header("Accept")?.includes("application/toon")) {
-            return c.text(encode(result), 200)
-        }
-
         return c.json(result, 201)
 
     } catch (error) {
-        // Mensaje de error único
-        const errorMsg = { msg: "Error: El servidor se encuentra fuera de servicio o la base de datos está detenida temporalmente" }
-
         // Status code
         // Ref: https://developer.mozilla.org/es/docs/Web/HTTP/Reference/Status#503_service_unavailable
         c.status(503)
 
-        if (c.req.header("Accept")?.includes("application/toon")) {
-            return c.text(encode(errorMsg), 503)
-        }
-
-        return c.json(errorMsg, 503)
+        return c.json({ msg: "Error: El servidor se encuentra fuera de servicio o la base de datos está detenida temporalmente" }, 503)
     }
 })
 
