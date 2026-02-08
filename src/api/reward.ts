@@ -2,18 +2,20 @@ import { Hono } from "hono";
 import { getInstanceDB } from "../helpers/Instancia.db";
 import { rewardTable } from "../DB/schema";
 import { desc } from "drizzle-orm";
+import { parseLimit } from "../helpers/query.helper";
 
 const app = new Hono();
 
 
 app.get('/reward', async (c) => {
     try {
-        // Instancia
+        const limit: number = parseLimit(c.req.query("limit"))
+        
         const db = getInstanceDB(c);
 
         const reward = await db.select().from(rewardTable)
             .orderBy(desc(rewardTable.id))
-            .limit(10)
+            .limit(limit)
 
         return c.json(reward, 200)
 
@@ -27,7 +29,6 @@ app.get('/reward', async (c) => {
     }
 
 })
-
 
 
 export { app as reward_route }
