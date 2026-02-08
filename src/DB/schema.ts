@@ -9,5 +9,3 @@ export const rewardTable = sqliteTable("rewards_db", {
     category: text("category").notNull().default("Emotes"),
     amount: int("amount").notNull().default(0)
 });
-
-export type Reward_DB = InferModel<typeof rewardTable>;
