@@ -1,4 +1,3 @@
-import { InferModel } from "drizzle-orm";
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const rewardTable = sqliteTable("rewards_db", {
