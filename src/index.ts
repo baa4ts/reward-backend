@@ -9,7 +9,6 @@ const app = new Hono<{ Bindings: Env }>()
     .basePath("/api/v1/")
 
 // Middleware global
-// app.use(compress())
 app.use(prettyJSON())
 
 // CORS

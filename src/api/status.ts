@@ -4,7 +4,6 @@ import { Env } from "../type/env";
 
 const app = new Hono();
 
-
 app.get("/", async (c) => {
     const { CORS } = env<Env>(c);
 
